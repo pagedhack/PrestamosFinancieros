@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+install
+
+npm install mdbreact
+npm install react-bootstrap
+npm install bootstrap
+npm install sweetalert2
+npm install styled-components
+npm install universal-cookie
+npm i babel-plugin-styled-components
