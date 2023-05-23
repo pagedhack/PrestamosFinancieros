@@ -19,8 +19,6 @@ import Login from './components/Paginas/Publico/Login';
 import perfil from './components/Paginas/Privado/Perfil';
 
 //protegidas
-import ClienteList from './components/Paginas/Servidor/Cliente/ClienteList';
-import ClienteForm from './components/Paginas/Servidor/Cliente/ClienteForm';
 
 
 function App() {
@@ -37,14 +35,17 @@ function App() {
                     <Route exact path='/prestamos' component={Prestamos} />
                     <Route exact path='/simulacion' component={SimulacionPrestamo} />
                     <Route exact path='/contacto' component={Contacto} />
-                    <Route path='/registro' component={Registro} />
-                    <Route path='/login' component={Login} />
-
+                    <Route exact path='/registro' component={Registro} />
+                    <Route exact path='/login' component={Login} />
+|
                     {/* privadas-cliente */}
-                    <Route path='/perfil' component={perfil} />
+                    <Route exact path='/perfil' component={perfil} />
 
                     {/* protegida-empleado */}
-                    <Route path='*' component={Error} />
+                    
+
+                    {/* default */}
+                    <Route exact path='*' component={Error} />
 
                 </Switch>
                 <Footer />

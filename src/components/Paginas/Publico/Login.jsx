@@ -31,13 +31,13 @@ class Login extends Component {
         console.log(data);
         if (data.message === "Seccess") {
             if (data.clientes.password === this.state.form.password) {
-                console.log(data.clientes.password);
                 cookies.set('id', data.clientes.id, {path: "/"})
                 cookies.set('name', data.clientes.name, { path: "/" })
                 cookies.set('apellidos', data.clientes.apellidos, { path: "/" })
                 cookies.set('fechaNacimiento', data.clientes.fechaNacimiento, { path: "/" })
-                cookies.set('name', data.clientes.name, { path: "/" })
-
+                cookies.set('correo', data.clientes.correo, { path: "/" })
+                cookies.set('rfc', data.clientes.rfc, { path: "/" })
+                cookies.set('telefono', data.clientes.telefono, { path: "/" })
                 window.location.href = "../Perfil"
             }
             else {

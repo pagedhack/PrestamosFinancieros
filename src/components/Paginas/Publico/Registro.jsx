@@ -1,35 +1,17 @@
-import { useState } from "react";
-import { Link, useHistory, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
+import Cookies from "universal-cookie";
 
-import { useForm } from '../Hook/useForm';
+import * as ClienteServer from '../Servidor/Cliente/ClienteServer';
 
-
-
-import * as clienteServer from '../Servidor/Cliente/ClienteServer';
+const cookies = new Cookies();
 
 export default function Registro() {
-
-    // const navigate = useNavigate();
-
-    const {email, password, onInputChange, onResetForm } =
-     useForm({
-        nombre: '',
-        apellido: '',
-        nacimiento: '',
-        rfc: '',
-        email: '',
-        telefono: '',
-        password: ''
-    })
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     history.push('/Privado/Perfil');
-    // }
-
     const history = useHistory();
+    const params = useParams();
+
     const initialState = { id: 0, name: "", apellidos: "", fechaNacimiento: "", rfc: "", correo: "", telefono: "" };
 
     const [cliente, setCliente] = useState(initialState);
@@ -38,21 +20,52 @@ export default function Registro() {
         setCliente({ ...cliente, [e.target.name]: e.target.value });
     };
 
+    const mostrarAlerta = () => {
+        Swal.fire("Error", "Error en la conexión con la base de datos", "error");
+    }
+    const mostrarAlerta2 = () => {
+        Swal.fire("Error", "Usuario ya registrado!", "error");
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(e);
         try {
             let res;
-            res = await clienteServer.registerCliente(cliente);
-            console.log(res);
+            res = await ClienteServer.registerCliente(cliente);
             const data = await res.json();
-            // history.push('/Privado/Perfil');
+            console.log(data);
             if (data.message === "Success") {
                 setCliente(initialState);
+                Swal.fire("Success", "Usuario registrado!", "success");
+            } else {
+                mostrarAlerta2();
+                history.push("/");
             }
         } catch (error) {
             console.log(error);
         }
     }
+
+    const getCliente = async (clienteId) => {
+        try {
+            const res = await ClienteServer.getCliente(clienteId);
+            const data = await res.json();
+            console.log(data);
+            const { name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol } = data.clientes;
+            setCliente({ name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol });
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        if (params.id) {
+            getCliente(params.id);
+        }
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <>

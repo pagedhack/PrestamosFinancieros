@@ -36,7 +36,9 @@ export default function ProfilePage({ cliente }) {
     setActive(value);
   }
 
-  console.log('name' + cookies.get('name'));
+  console.log('name' + cookies.get('correo'));
+
+  // console.log(cookies);
 
 
   return (
@@ -126,16 +128,6 @@ export default function ProfilePage({ cliente }) {
 
                   </MDBTabs>
 
-                  {/* opcion de salir */}
-                  <MDBTabs>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                      <MDBCardText>Salir</MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem tag='a' href='#' action noBorders className='px-3'>
-                      LogOut
-                    </MDBListGroupItem>
-                  </MDBTabs>
-
                 </MDBListGroup>
 
               </MDBCardBody>
@@ -167,7 +159,7 @@ export default function ProfilePage({ cliente }) {
                         <MDBCardText>Apellidos</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">*********</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('apellidos')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -176,7 +168,7 @@ export default function ProfilePage({ cliente }) {
                         <MDBCardText>Fecha de Nacimiento</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">*********</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('fechaNacimiento')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -185,7 +177,7 @@ export default function ProfilePage({ cliente }) {
                         <MDBCardText>RFC</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">*************</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('rfc')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -194,7 +186,7 @@ export default function ProfilePage({ cliente }) {
                         <MDBCardText>Correo</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">************</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('correo')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -203,18 +195,10 @@ export default function ProfilePage({ cliente }) {
                         <MDBCardText>Telefono</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">00000000000000000</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('fechaNacimiento')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Contraseña</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText className="text-muted">**************</MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
                   </MDBCardBody>
                 </MDBCard>
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import swal from "sweetalert2";
-// import Swal from 'sweetalert2';
 
 import * as ClienteServer from "./ClienteServer";
 
@@ -37,7 +36,7 @@ const ClienteForm=()=>{
             swal("Success", "Usuario registrado!");
           } else{
             mostrarAlerta2();
-            // history.push("/");
+            history.push("/");
           }
         } else {
           await ClienteServer.updateCliente(params.id, cliente);

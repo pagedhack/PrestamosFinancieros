@@ -14,13 +14,13 @@ class NavbarHome extends Component {
   cerrarSesion = () => {
     cookies.remove('id', { path: "/" });
     cookies.remove('name', { path: "/" })
-    // window.location.href('./home');
+    window.location.href('./home');
   }
 
   componentDidMount() {
     if (!cookies.get('name')) {
       console.log(cookies.get('name' + "navbar"));
-      // window.location.href = "./Perfil";
+      // window.location.href = "./home";
     }
   }
 
@@ -52,7 +52,7 @@ class NavbarHome extends Component {
                     <Nav>
                       <Navbar.Collapse className="justify-content-end">
                         <NavDropdown title={cookies.get('name')} id="basic-nav-dropdown">
-                          <NavDropdown.Item href="#action/3.1">Perfil</NavDropdown.Item>
+                          <NavDropdown.Item href="/Perfil">Perfil</NavDropdown.Item>
                           <NavDropdown.Item href="#action/3.2">Prestamos</NavDropdown.Item>
                           <NavDropdown.Divider />
                           <NavDropdown.Item href="./home" onClick={() => this.cerrarSesion()}>Cerrar sesion</NavDropdown.Item>

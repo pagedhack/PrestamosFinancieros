@@ -1,7 +1,10 @@
 
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 
 export default function Simulador() {
 
@@ -132,7 +135,13 @@ export default function Simulador() {
               </div>
 
               <button id="simular" onClick={simular}>Simular préstamo</button>
-              <button id="pedir" >Pedir préstamo</button>
+              {
+                !cookies.get('name') ? (
+                  <Link to={"/Login"}><button id="pedir" >Pedir préstamo</button></Link>
+                ) : (
+                  <Link to={"/Perfil"}><button id="pedir" >Pedir préstamo</button></Link>
+                )
+              }
             </div>
           </div>
 
@@ -186,6 +195,8 @@ const SimuladorC = styled.body`
     flex-wrap: wrap;
     margin-bottom: 60px;
     flex-direction: row;
+    background: rgb(0,0,0);
+    background: linear-gradient(190deg, rgba(0,0,0,0.8) 0%, rgba(121,9,106,0.8) 35%, rgba(217,0,0,0.8) 100%);
 }
 
 body {

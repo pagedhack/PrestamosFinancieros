@@ -71,31 +71,48 @@ export default function Landing() {
                         <MDBCarouselItem
                             className='w-100 d-block'
                             itemId={1}
-                            src='https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg'
+                            src='https://mdbootstrap.com/img/Photos/Slides/img%20(28).jpg'
                             alt='...'
                         >
-                            <h5>First slide label</h5>
-                            <p id='texto'>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            <div id='visual'>
+                                <h2><b><span>¿Tienes sueños de viajar a otro pais?</span></b></h2>
+                                <p id='texto'>pero no tienes el capital necesario para hacerlo realidad?</p>
+                            </div>
                         </MDBCarouselItem>
 
                         <MDBCarouselItem
                             className='w-100 d-block'
                             itemId={2}
-                            src='https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg'
+                            src='https://mdbootstrap.com/img/Photos/Slides/img%20(17).jpg'
                             alt='...'
                         >
-                            <h5>Second slide label</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <div id='visual'>
+                                <h2><b><span>Vivir experiencias extremas con tus amigos</span></b></h2>
+                                <p id='texto'>pero ninguno puede sacar prestamos disponibles</p>
+                            </div>
                         </MDBCarouselItem>
 
                         <MDBCarouselItem
                             className='w-100 d-block'
                             itemId={3}
-                            src='https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg'
+                            src='https://mdbootstrap.com/img/Photos/Slides/img%20(29).jpg'
                             alt='...'
                         >
-                            <h5>Third slide label</h5>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                            <div id='visual'>
+                                <h2 id='blanco'><b><span>Tener la casa de tus sueños</span></b></h2>
+                                <p id='texto'>aunque sabes que estaria en problemas con los bancos por disponibilidad</p>
+                            </div>
+                        </MDBCarouselItem>
+
+                        <MDBCarouselItem
+                            className='w-100 d-block'
+                            itemId={4}
+                            src='https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg'
+                            alt='...'
+                        >
+                            <div id='visual'>
+                                <h2><b><span>O simplemente realizar un momento especial con alguna persona</span></b></h2>
+                            </div>
                         </MDBCarouselItem>
                     </MDBCarousel>
 
@@ -195,9 +212,12 @@ export default function Landing() {
 
 const Estilob = styled.body`
 
-#todo{
-/* background: rgba(148,187,233,1) 100%; */
-/* margin-top: 1rem; */
+#visual{
+    background: rgb(238,174,202);
+    background: linear-gradient(190deg, rgba(238,174,202,1) 0%, rgba(0,0,0,0.654499299719888) 7%);
+    border-radius: 50px;
+    width: 500px;
+    border: 1px solid #000;
 }
 
 #botones{
