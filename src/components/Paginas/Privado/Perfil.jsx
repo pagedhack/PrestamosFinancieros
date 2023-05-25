@@ -120,9 +120,9 @@ export default function ProfilePage({ cliente }) {
                       </MDBTabsItem>
                     </MDBListGroupItem>
 
-                    <MDBListGroupItem action active={basicActive === 'sPrestamo'} noBorders className='px-3'>
+                    <MDBListGroupItem action active={basicActive === 'sPrestamos'} noBorders className='px-3'>
                       <MDBTabsItem>
-                        <MDBTabsLink onClick={() => handleBasicClick('sPrestamo')}>Situacion de Prestamos</MDBTabsLink>
+                        <MDBTabsLink onClick={() => handleBasicClick('sPrestamos')}>Situacion de Prestamos</MDBTabsLink>
                       </MDBTabsItem>
                     </MDBListGroupItem>
 
@@ -209,39 +209,22 @@ export default function ProfilePage({ cliente }) {
                   <MDBCardBody>
                     <MDBRow>
                       <MDBCol sm="3">
-                        <MDBCardText>Nombre</MDBCardText>
+                        <MDBCardText>Numero de trajeta</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">************</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('name')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
                     <MDBRow>
                       <MDBCol sm="3">
-                        <MDBCardText>Apellidos</MDBCardText>
+                        <MDBCardText>Vencimiento</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">*********</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('name')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Fecha de Nacimiento</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText className="text-muted">*********</MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>RFC</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText className="text-muted">*************</MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
                   </MDBCardBody>
                 </MDBCard>
 
@@ -259,7 +242,7 @@ export default function ProfilePage({ cliente }) {
                       </MDBCol>
                       <MDBCol sm="9">
                         <MDBCardText>
-                          <input type="text-muted" />
+                          <input type="text-muted" value={cookies.get('name')} />
                         </MDBCardText>
                       </MDBCol>
                     </MDBRow>
@@ -345,7 +328,7 @@ export default function ProfilePage({ cliente }) {
                   <MDBCardBody>
                     <MDBRow>
                       <MDBCol sm="3">
-                        <MDBCardText>Nombre</MDBCardText>
+                        <MDBCardText>Numero de trajeta</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
                         <MDBCardText>
@@ -356,7 +339,7 @@ export default function ProfilePage({ cliente }) {
                     <hr />
                     <MDBRow>
                       <MDBCol sm="3">
-                        <MDBCardText>Apellidos</MDBCardText>
+                        <MDBCardText>Vencimiento</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
                         <MDBCardText>
@@ -365,27 +348,6 @@ export default function ProfilePage({ cliente }) {
                       </MDBCol>
                     </MDBRow>
                     <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Fecha de Nacimiento</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>RFC</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
                   </MDBCardBody>
                 </MDBCard>
                 <div className="d-flex justify-content-center mb-2">
@@ -399,9 +361,107 @@ export default function ProfilePage({ cliente }) {
             {/* Contenido cuenta */}
             <MDBTabsContent>
               <MDBTabsPane show={basicActive === 'pActivos'}>
+                <MDBCol md="6">
+                  <MDBCard className="mb-4 mb-md-0">
+                    <MDBCardBody>
+                      <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Prestamo Activo</span></MDBCardText>
+
+                      <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Total Pagado</MDBCardText>
+                      <MDBProgress height='20' className="rounded">
+                        <MDBProgressBar width='50' valuemin={0} valuemax={100}>
+                          50%
+                        </MDBProgressBar>
+                      </MDBProgress>
+                    </MDBCardBody>
+
+                    <MDBCardBody>
+                      <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Prestamo Saldado</span></MDBCardText>
+
+                      <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Total Pagado</MDBCardText>
+                      <MDBProgress className="rounded">
+                        <MDBProgressBar width={100} valuemin={0} valuemax={100} />
+                      </MDBProgress>
+                    </MDBCardBody>
+
+                    <MDBCardBody>
+                      <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Prestamo Activo</span></MDBCardText>
+
+                      <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Total Pagado</MDBCardText>
+                      <MDBProgress className="rounded">
+                        <MDBProgressBar width={90} valuemin={0} valuemax={100} />
+                      </MDBProgress>
+                    </MDBCardBody>
+
+                  </MDBCard>
+                </MDBCol>
               </MDBTabsPane>
 
               <MDBTabsPane show={basicActive === 'eBuro'}>
+                <MDBRow>
+                  <MDBCol md="6">
+                    <MDBCard className="mb-4 mb-md-0">
+                      <MDBCardBody>
+                        <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
+                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={80} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={72} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={89} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={55} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={66} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+
+                  <MDBCol md="6">
+                    <MDBCard className="mb-4 mb-md-0">
+                      <MDBCardBody>
+                        <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
+                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={80} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={72} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={89} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={55} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
+                        <MDBProgress className="rounded">
+                          <MDBProgressBar width={66} valuemin={0} valuemax={100} />
+                        </MDBProgress>
+                      </MDBCardBody>
+                    </MDBCard>
+                  </MDBCol>
+                </MDBRow>
 
               </MDBTabsPane>
 

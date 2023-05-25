@@ -12,7 +12,7 @@ export default function Registro() {
     const history = useHistory();
     const params = useParams();
 
-    const initialState = { id: 0, name: "", apellidos: "", fechaNacimiento: "", rfc: "", correo: "", telefono: "" };
+    const initialState = { id: 0, name: "", apellidos: "", fechaNacimiento: "", rfc: "", correo: "", telefono: "" , rol: 2};
 
     const [cliente, setCliente] = useState(initialState);
 
@@ -29,21 +29,29 @@ export default function Registro() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(e);
         try {
             let res;
             res = await ClienteServer.registerCliente(cliente);
             const data = await res.json();
             console.log(data);
             if (data.message === "Success") {
+                cookies.set('name', document.getElementById("name").value())
+                cookies.set('apellidos', document.getElementById("apellidos"))
+                cookies.set('fechaNacimiento', document.getElementById("fechaNacimiento"))
+                cookies.set('correo', document.getElementById("correo"))
+                cookies.set('rfc', document.getElementById("rfc"))
+                cookies.set('telefono', document.getElementById("telefono"))
+                window.location.href = "../Navbar";
                 setCliente(initialState);
                 Swal.fire("Success", "Usuario registrado!", "success");
             } else {
                 mostrarAlerta2();
                 history.push("/");
             }
+            history.push("/");
         } catch (error) {
-            console.log(error);
+            mostrarAlerta();
+            history.push("/")
         }
     }
 
@@ -110,10 +118,8 @@ export default function Registro() {
                                     Registrar
                                 </button>
 
-                            </div>
-                            <div className="d-grid gap-2">
-
                                 <Link to={"/Login"}><button className="btn btn-block btn-primary">Login</button></Link>
+
 
                             </div>
                         </form>
