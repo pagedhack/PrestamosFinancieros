@@ -3,6 +3,8 @@ import React from 'react';
 import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
+
 
 
 export default function Landing() {
@@ -77,6 +79,8 @@ export default function Landing() {
                             <div id='visual'>
                                 <h2><b><span>¿Tienes sueños de viajar a otro pais?</span></b></h2>
                                 <p id='texto'>pero no tienes el capital necesario para hacerlo realidad?</p>
+                                <p id='texto'>Cumpla sus sueños con nosotros. . .</p>
+                                <Link to={"/Registro"}><button id='b' type="button" class="btn btn-primary">Registrese</button></Link>
                             </div>
                         </MDBCarouselItem>
 
@@ -89,6 +93,8 @@ export default function Landing() {
                             <div id='visual'>
                                 <h2><b><span>Vivir experiencias extremas con tus amigos</span></b></h2>
                                 <p id='texto'>pero ninguno puede sacar prestamos disponibles</p>
+                                <Link to={"/Registro"}><button id='b' type="button" class="btn btn-primary">Registrese</button></Link>
+
                             </div>
                         </MDBCarouselItem>
 
@@ -101,6 +107,8 @@ export default function Landing() {
                             <div id='visual'>
                                 <h2 id='blanco'><b><span>Tener la casa de tus sueños</span></b></h2>
                                 <p id='texto'>aunque sabes que estaria en problemas con los bancos por disponibilidad</p>
+                                <Link to={"/Registro"}><button id='b' type="button" class="btn btn-primary">Registrese</button></Link>
+
                             </div>
                         </MDBCarouselItem>
 
@@ -112,6 +120,8 @@ export default function Landing() {
                         >
                             <div id='visual'>
                                 <h2><b><span>O simplemente realizar un momento especial con alguna persona</span></b></h2>
+                                <p id='texto'>No importa lo que te propongas, nosotros te ayudamos a cumplirlo. . .</p>
+                                <Link to={"/Registro"}><button id='b' type="button" class="btn btn-primary">Registrese</button></Link>
                             </div>
                         </MDBCarouselItem>
                     </MDBCarousel>
@@ -218,6 +228,11 @@ const Estilob = styled.body`
     border-radius: 50px;
     width: 500px;
     border: 1px solid #000;
+}
+
+#b{
+    border-radius: 30px;
+    height: 15 px;
 }
 
 #botones{

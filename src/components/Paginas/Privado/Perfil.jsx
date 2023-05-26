@@ -18,17 +18,26 @@ import {
   MDBTabsItem,
   MDBTabsLink,
   MDBTabsContent,
-  MDBTabsPane
+  MDBTabsPane,
+  MDBBadge
 } from 'mdb-react-ui-kit';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
+import { Link, useHistory, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+
+import * as ClienteServer from '../Servidor/Cliente/ClienteServer';
+
 
 const cookies = new Cookies();
 
-
-export default function ProfilePage({ cliente }) {
+export default function ProfilePage() {
 
   const [basicActive, setActive] = useState('rPerfil');
+
+  const subir = () => {
+    window.scrollTo(0, 0);
+  }
 
   const handleBasicClick = (value: string) => {
     if (value === basicActive) return;
@@ -36,10 +45,79 @@ export default function ProfilePage({ cliente }) {
     setActive(value);
   }
 
-  console.log('name' + cookies.get('correo'));
+  const history = useHistory();
+  const params = useParams();
 
-  // console.log(cookies);
+  const initialState = { id: 0, name: "", apellidos: "", fechaNacimiento: "", rfc: "", correo: "", telefono: "", password: "", rol: 2 };
 
+  const [cliente, setCliente] = useState(initialState);
+
+  const handleInputChange = (e) => {
+    setCliente({ ...cliente, [e.target.name]: e.target.value });
+  };
+
+  const mostrarAlerta = () => {
+    Swal.fire("Error", "Contraseña invalida", 'error');
+  }
+  const mostrarAlerta2 = () => {
+    Swal.fire("Error", "Usuario ya registrado!", 'error');
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let res;
+      if (params.id) {
+        res = await ClienteServer.updateCliente(params.id, cliente);
+        const data = await res.json();
+        console.log(data);
+        if (data.message === "Success") {
+          Swal.fire("Seccess", "Cliente actualizado!");
+        }
+        if (data.message === "Correo") {
+          Swal.fire("Error", "Correo ya en uso");
+        }
+        if (data.message === "Clientes not found") {
+          mostrarAlerta();
+        }
+      }
+      history.push("/");
+    } catch (error) {
+      mostrarAlerta2();
+      history.push("/");
+    }
+  };
+
+  const getCliente = async (clienteId) => {
+    try {
+      const res = await ClienteServer.getCliente(clienteId);
+      const data = await res.json();
+      console.log(data);
+      const { name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol } = data.clientes;
+      setCliente({ name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol });
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (params.id) {
+      getCliente(params.id);
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+  const v = getRandomInt(2);
+
+  function va({ text }) {
+    return text
+      ? <button>{text}</button>
+      : null
+  }
 
   return (
     <section style={{ backgroundColor: '#eee' }}>
@@ -67,7 +145,7 @@ export default function ProfilePage({ cliente }) {
                   style={{ width: '150px' }}
                   fluid />
                 <p></p>
-                <p className="text-muted mb-1">Correo</p>
+                <p className="text-muted mb-1">{cookies.get('correo')}</p>
                 <p className="text-muted mb-4"></p>
               </MDBCardBody>
             </MDBCard>
@@ -195,7 +273,7 @@ export default function ProfilePage({ cliente }) {
                         <MDBCardText>Telefono</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">{cookies.get('fechaNacimiento')}</MDBCardText>
+                        <MDBCardText className="text-muted">{cookies.get('telefono')}</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -209,7 +287,7 @@ export default function ProfilePage({ cliente }) {
                   <MDBCardBody>
                     <MDBRow>
                       <MDBCol sm="3">
-                        <MDBCardText>Numero de trajeta</MDBCardText>
+                        <MDBCardText>Numero de tarjeta</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
                         <MDBCardText className="text-muted">{cookies.get('name')}</MDBCardText>
@@ -236,87 +314,81 @@ export default function ProfilePage({ cliente }) {
                     <MDBCardText>Perfil</MDBCardText>
                   </MDBListGroupItem>
                   <MDBCardBody>
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Nombre</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" value={cookies.get('name')} />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Apellidos</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Fecha de Nacimiento</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>RFC</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Correo</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Telefono</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
-                    <hr />
-                    <MDBRow>
-                      <MDBCol sm="3">
-                        <MDBCardText>Contraseña</MDBCardText>
-                      </MDBCol>
-                      <MDBCol sm="9">
-                        <MDBCardText>
-                          <input type="text-muted" />
-                        </MDBCardText>
-                      </MDBCol>
-                    </MDBRow>
+                    <form onSubmit={handleSubmit}>
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Nombre</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText>
+                            <input type="text" placeholder={cookies.get('name')} name="name" value={cliente.name} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required /></MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <hr />
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Apellidos</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText>
+
+                            <input type="text" placeholder={cookies.get('apellidos')} name="name" value={cliente.apellidos} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required /></MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <hr />
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Fecha de Nacimiento</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText>
+                            <input type="date" placeholder={cookies.get('fechaNacimiento')} name="fechaNacimiento" value={cliente.fechaNacimiento} data-date-format="yyyy-mm-dd" onChange={handleInputChange} className="form-control" maxLength="100" required />
+                          </MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <hr />
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>RFC</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText>
+                            <input type="text" name="name" value={cookies.get('rfc')} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required /></MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <hr />
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Correo</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText>
+                            <input type="text" name="name" value={cookies.get('correo')} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
+                          </MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <hr />
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Telefono</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText>
+                            <input type="text" name="name" value={cookies.get('telefono')} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
+                          </MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                    </form>
                   </MDBCardBody>
                 </MDBCard>
                 <div className="d-flex justify-content-center mb-2">
-                  <button type="button" class="btn btn-outline-primary ms-1">Guardar</button>
-                  <button type="button" class="btn btn-outline-primary ms-1">Cancelar</button>
+                  <button type="submit" className="btn btn-block btn-primary" onClick={handleSubmit}>
+                    Guardar
+                  </button>
+                  <Link to={"/Home"}><button className="btn btn-block btn-primary" onClick={subir}>
+                    Cancelar
+                  </button>
+                  </Link>
                 </div>
               </MDBTabsPane>
 
@@ -388,7 +460,7 @@ export default function ProfilePage({ cliente }) {
 
                       <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Total Pagado</MDBCardText>
                       <MDBProgress className="rounded">
-                        <MDBProgressBar width={90} valuemin={0} valuemax={100} />
+                        <MDBProgressBar width={100} valuemin={0} valuemax={100} />
                       </MDBProgress>
                     </MDBCardBody>
 
@@ -401,63 +473,16 @@ export default function ProfilePage({ cliente }) {
                   <MDBCol md="6">
                     <MDBCard className="mb-4 mb-md-0">
                       <MDBCardBody>
-                        <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={80} valuemin={0} valuemax={100} />
+                        <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Status de Buro</span></MDBCardText>
+
+
+                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Esta en Buro de credito</MDBCardText>
+                        <MDBProgress height='40' className="rounded">
+                          <MDBProgressBar width='0' valuemin={0} valuemax={100}>
+                            0
+                          </MDBProgressBar>
                         </MDBProgress>
 
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-
-                  <MDBCol md="6">
-                    <MDBCard className="mb-4 mb-md-0">
-                      <MDBCardBody>
-                        <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                        <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                        </MDBProgress>
-
-                        <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                        <MDBProgress className="rounded">
-                          <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                        </MDBProgress>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
@@ -466,77 +491,35 @@ export default function ProfilePage({ cliente }) {
               </MDBTabsPane>
 
               <MDBTabsPane show={basicActive === 'sPrestamos'}>
-
+                <MDBListGroup light numbered style={{ minWidth: '22rem' }}>
+                  <MDBListGroupItem className='d-flex justify-content-between align-items-start'>
+                    <div className='ms-2 me-auto'>
+                      <div className='fw-bold'>Prestamo Pagado</div>Fecha
+                    </div>
+                    <MDBBadge pill light>
+                      5000
+                    </MDBBadge>
+                  </MDBListGroupItem>
+                  <MDBListGroupItem className='d-flex justify-content-between align-items-start'>
+                    <div className='ms-2 me-auto'>
+                      <div className='fw-bold'>Prestamo Pagado</div>Fecha
+                    </div>
+                    <MDBBadge pill light>
+                      5000
+                    </MDBBadge>
+                  </MDBListGroupItem>
+                  <MDBListGroupItem className='d-flex justify-content-between align-items-start'>
+                    <div className='ms-2 me-auto'>
+                      <div className='fw-bold'>Prestamo Pagado</div>Fecha
+                    </div>
+                    <MDBBadge pill light>
+                      5000
+                    </MDBBadge>
+                  </MDBListGroupItem>
+                </MDBListGroup>
               </MDBTabsPane>
+
             </MDBTabsContent>
-
-
-
-            {/* <MDBRow>
-  //             <MDBCol md="6">
-  //               <MDBCard className="mb-4 mb-md-0">
-  //                 <MDBCardBody>
-  //                   <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-  //                   <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-  //                 </MDBCardBody>
-  //               </MDBCard>
-  //             </MDBCol>
-
-  //             <MDBCol md="6">
-  //               <MDBCard className="mb-4 mb-md-0">
-  //                 <MDBCardBody>
-  //                   <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-  //                   <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-
-  //                   <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-  //                   <MDBProgress className="rounded">
-  //                     <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-  //                   </MDBProgress>
-  //                 </MDBCardBody>
-  //               </MDBCard>
-  //             </MDBCol>
-  //           </MDBRow> */}
 
           </MDBCol>
         </MDBRow>

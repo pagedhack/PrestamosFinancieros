@@ -4,6 +4,7 @@ import { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -13,12 +14,6 @@ class NavbarHome extends Component {
     cookies.remove('id', { path: "/" });
     cookies.remove('name', { path: "/" })
     window.location.href('./home');
-  }
-
-  componentDidMount() {
-    if (cookies.get('name')) {
-      window.location.href = "./home";
-    }
   }
 
   render() {
@@ -36,12 +31,22 @@ class NavbarHome extends Component {
                 <Nav.Link href="/Home"><i className="fa fa-fw fa-home"></i> Home</Nav.Link>
                 <Nav.Link href='/simulacion'><i className="fa fa-fw fa-calculator"></i> Simulacion</Nav.Link>
                 <Nav.Link href='/Contacto'><i className="fa fa-envelope"></i> Contacto</Nav.Link>
+                <Nav.Link href='/Prestamos'><i className="fa fa-money"></i> Prestamos</Nav.Link>
               </Nav>
 
-              <Nav>
-                <Nav.Link href='/Login'>Login</Nav.Link>
-                <Nav.Link eventKey={2} href='/Registro'>Registro</Nav.Link>
-              </Nav>
+
+              <div className='logueado'>
+                <Nav>
+                  <Navbar.Collapse className="justify-content-end">
+                    <NavDropdown title={cookies.get('name')} id="basic-nav-dropdown">
+                      <NavDropdown.Item href="/Perfil">Perfil</NavDropdown.Item>
+                      <NavDropdown.Item href="/Prestamos">Prestamos</NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item href="./home" onClick={() => this.cerrarSesion()}>Cerrar sesion</NavDropdown.Item>
+                    </NavDropdown>
+                  </Navbar.Collapse>
+                </Nav>
+              </div>
 
             </Navbar.Collapse>
 

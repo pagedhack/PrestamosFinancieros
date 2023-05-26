@@ -1,8 +1,10 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import React from 'react';
+import Cookies from 'universal-cookie';
 
 // Componentes
 import Navbar from './components/Paginas/Navbar/Navbar';
+import NavbarCliente from './components/Paginas/Navbar/NavbarCliente';
 import Footer from './components/Paginas/Publico/Footer';
 import Error from './components/Paginas/Publico/Error';
 
@@ -24,10 +26,18 @@ import perfil from './components/Paginas/Privado/Perfil';
 function App() {
 
 
+    const cookies = new Cookies();
+
     return (
         <React.StrictMode>
             <BrowserRouter>
-                <Navbar />
+                {
+                    !cookies.get('name') ? (
+                        <Navbar />
+                    ) : (
+                        <NavbarCliente />
+                    )
+                }
                 <Switch>
                     {/* publicas */}
                     <Route exact path="/" component={Landing} />
@@ -37,12 +47,12 @@ function App() {
                     <Route exact path='/contacto' component={Contacto} />
                     <Route exact path='/registro' component={Registro} />
                     <Route exact path='/login' component={Login} />
-|
+                    |
                     {/* privadas-cliente */}
                     <Route exact path='/perfil' component={perfil} />
 
                     {/* protegida-empleado */}
-                    
+
 
                     {/* default */}
                     <Route exact path='*' component={Error} />

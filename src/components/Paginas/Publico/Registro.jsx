@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import Cookies from "universal-cookie";
 
 import * as ClienteServer from '../Servidor/Cliente/ClienteServer';
-
-const cookies = new Cookies();
 
 export default function Registro() {
     const history = useHistory();
     const params = useParams();
 
-    const initialState = { id: 0, name: "", apellidos: "", fechaNacimiento: "", rfc: "", correo: "", telefono: "" , rol: 2};
+    const initialState = { id: 0, name: "", apellidos: "", fechaNacimiento: "", rfc: "", correo: "", telefono: "", rol: 2 };
 
     const [cliente, setCliente] = useState(initialState);
 
@@ -22,9 +19,11 @@ export default function Registro() {
 
     const mostrarAlerta = () => {
         Swal.fire("Error", "Error en la conexión con la base de datos", "error");
+        window.scrollTo(0, 0)
     }
     const mostrarAlerta2 = () => {
         Swal.fire("Error", "Usuario ya registrado!", "error");
+        window.scrollTo(0, 0)
     }
 
     const handleSubmit = async (e) => {
@@ -35,20 +34,14 @@ export default function Registro() {
             const data = await res.json();
             console.log(data);
             if (data.message === "Success") {
-                cookies.set('name', document.getElementById("name").value())
-                cookies.set('apellidos', document.getElementById("apellidos"))
-                cookies.set('fechaNacimiento', document.getElementById("fechaNacimiento"))
-                cookies.set('correo', document.getElementById("correo"))
-                cookies.set('rfc', document.getElementById("rfc"))
-                cookies.set('telefono', document.getElementById("telefono"))
-                window.location.href = "../Navbar";
-                setCliente(initialState);
                 Swal.fire("Success", "Usuario registrado!", "success");
+                window.location.href = "../Login";
+                setCliente(initialState);
             } else {
                 mostrarAlerta2();
                 history.push("/");
             }
-            history.push("/");
+            history.push("/Login");
         } catch (error) {
             mostrarAlerta();
             history.push("/")
@@ -84,7 +77,7 @@ export default function Registro() {
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label className="form-label">Name</label>
-                                <input type="text" name="name" value={cliente.name} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
+                                <input type="text" id="name" name="name" value={cliente.name} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Apellidos</label>
@@ -115,11 +108,15 @@ export default function Registro() {
                             <div className="d-grid gap-2">
 
                                 <button type="submit" className="btn btn-block btn-primary">
-                                    Registrar
+                                    Registrarse
                                 </button>
 
-                                <Link to={"/Login"}><button className="btn btn-block btn-primary">Login</button></Link>
-
+                                <div id='login'>
+                                    <div className='contenido'>
+                                        <p>Ya dispone de una cuenta?</p>
+                                        <Link to={"/Login"}><button className="btn btn-block btn-primary">Inicie Sesión</button></Link>
+                                    </div>
+                                </div>
 
                             </div>
                         </form>
@@ -137,8 +134,20 @@ const EstilosRegistro = styled.body`
     color: black;
 }
 
+
 #principal{
-    margin: 3rem;
+    margin: 5rem;
+    #login{
+        box-shadow: 0 2px 5px black;
+        border-radius: 10px;
+        margin-top: 2rem;
+        text-align: center;
+    }
+    .contenido{
+        top: 10px;
+            margin-top: 1rem;
+            padding: 15px;
+        }
 }
 
 `

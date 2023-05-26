@@ -56,40 +56,54 @@ class Login extends Component {
     componentDidMount() {
         if (cookies.get('name')) {
             window.location.href = "../Navbar";
+            window.location.href = "../Perfil"
         }
     }
 
     render() {
         return (
             <>
-            <EstiloLogin>
-                <div class="container">
+                <EstiloLogin>
+                    <div id='principal'>
+                        <div className="col-md-3 mx-auto">
+                            <h2 className="mb-3 text-center" id="textRegistro"><span>Login</span></h2>
+                            <p className='text-center'>Despues de registrarte, inicia sesion para comprobar tus credenciales</p>
+                            <div className="containerSecundario">
+                                <div className="form-group">
+                                    <label>Email: </label>
+                                    <br />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="correo"
+                                        placeholder='Email'
+                                        onChange={this.handleChange}
+                                    />
+                                    <br />
+                                    <label>Contraseña: </label>
+                                    <br />
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        name="password"
+                                        placeholder='password'
+                                        onChange={this.handleChange}
+                                    />
+                                    <br />
+                                    <button className="btn btn-primary" onClick={() => this.iniciarSesion()}>Iniciar Sesión</button>
 
-                    <form class="form-signin">
-                        <h2 class="form-signin-heading">Login</h2>
+                                    <div id='registro'>
+                                        <div className='contenido'>
+                                            <p>No cuenta con ninguna cuenta aun?</p>
+                                            <Link to={"/Registro"}><button className="btn btn-block btn-primary">Registrarse</button></Link>
+                                        </div>
+                                    </div>
 
-                        <input
-                            type="text"
-                            className="input-block-level"
-                            name='correo'
-                            placeholder="Correo Electronico"
-                            onChange={this.handleChange}
-                        />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                        <input
-                            type="password"
-                            className="input-block-level"
-                            name='password'
-                            placeholder="Password"
-                            onChange={this.handleChange}
-                        />
-
-                        <button className="btn btn-large btn-primary" onClick={() => this.iniciarSesion()}>Iniciar Sesión</button>
-                        <Link to={"/Registro"}><button className="btn btn-large btn-primary">Registro</button></Link>
-
-                    </form>
-
-                </div >
                 </EstiloLogin>
             </>
 
@@ -101,33 +115,36 @@ export default Login;
 
 const EstiloLogin = styled.body`
 body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
-      }
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
 
-      .form-signin {
-        max-width: 300px;
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
-        background-color: #fff;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin input[type="text"],
-      .form-signin input[type="password"] {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 9px;
-      }
+#principal{
+    margin: 5rem;
+    #registro{
+        box-shadow: 0 2px 5px black;
+        border-radius: 10px;
+        margin-top: 2rem;
+    }
+    .contenido{
+        top: 10px;
+            margin-top: 1rem;
+            padding: 15px;
+        }
+}
+
+.containerPrincipal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid blue;
+    padding: 40px;
+    background-color: white;
+  }
+  
+.containerSecundario{
+    text-align: center;
+  }
 `

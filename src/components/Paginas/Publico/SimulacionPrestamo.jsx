@@ -24,7 +24,7 @@ export default function Simulador() {
       let pagoInteres = 0, pagoCapital = 0, cuota = 0;
 
       if (!monto) {
-        Swal.fire('', 'Va a Realizar alguna Operacion?', 'question');
+        Swal.fire('', 'Va a Realizar alguna Operación?', 'question');
       } else {
 
         while (tabla.firstChild) {
@@ -87,16 +87,17 @@ export default function Simulador() {
             <th>${sumaInteres.toFixed(2)}</th>
           `;
         final.appendChild(pie);
-      }
-      texto.innerHTML = `
+
+        texto.innerHTML = `
         <h5><b>${"Usted va a pagar " + cuota.toFixed(2) + " por mes"}</b></h5><br>
         <p>${" La cantidad a pagar es: " + sumaCuota.toFixed(1) + " por " + plazo + " meses"}</p>
-        <p>${" La cantidad de interes es de " + sumaInteres.toFixed(1)}</p>
         `;
+      }
     }
 
   }
 
+  
 
   return (
     <>
@@ -139,7 +140,7 @@ export default function Simulador() {
                 !cookies.get('name') ? (
                   <Link to={"/Login"}><button id="pedir" >Pedir préstamo</button></Link>
                 ) : (
-                  <Link to={"/Perfil"}><button id="pedir" >Pedir préstamo</button></Link>
+                  <Link to={"/Perfil"}><button id="pedir">Pedir préstamo</button></Link>
                 )
               }
             </div>
