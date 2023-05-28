@@ -17,6 +17,7 @@ class NavbarHome extends Component {
   }
 
   render() {
+    console.log(cookies.get('rol') + "navbar 2");
     return (
       <>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -31,7 +32,9 @@ class NavbarHome extends Component {
                 <Nav.Link href='/simulacion'><i className="fa fa-fw fa-calculator"></i> Simulacion</Nav.Link>
                 <Nav.Link href='/Contacto'><i className="fa fa-envelope"></i> Contacto</Nav.Link>
                 <Nav.Link href='/Prestamos'><i className="fa fa-money"></i> Prestamos</Nav.Link>
-                <Nav.Link href='/Referencias'><i className="fa fa-file"></i> Referencias</Nav.Link>
+                <Nav.Link href='/Referencias'><i className="fa fa-money"></i> Referencias</Nav.Link>
+                <Nav.Link href='/Validacion'><i className="fa fa-question"></i> Validacion</Nav.Link>
+                <Nav.Link href='/Aceptacion'><i className="fa fa-question"></i> Aceptacion</Nav.Link>
 
               </Nav>
 

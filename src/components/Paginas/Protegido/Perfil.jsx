@@ -108,26 +108,13 @@ export default function ProfilePage() {
     // eslint-disable-next-line
   }, []);
 
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
-
-  console.log(getRandomInt(2));
-
-
-  // function va({ text }) {
-  //   return text
-  //     ? <button>{text}</button>
-  //     : null
-  // }
-
   return (
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
+              <MDBBreadcrumbItem active>Empleado Profile</MDBBreadcrumbItem>
             </MDBBreadcrumb>
           </MDBCol>
         </MDBRow>

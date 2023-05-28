@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import styled from "styled-components";
 import * as ClienteServer from '../Servidor/Cliente/ClienteServer';
-// import * as ClienteServer from '../Servidor/Cliente/EmpleadoServer';
+import * as EmpleadoServer from '../Servidor/Empleado/EmpleadoServer';
 
 const cookies = new Cookies();
 
@@ -28,29 +28,44 @@ class Login extends Component {
     }
 
     iniciarSesion = async () => {
-        const respuesta = await ClienteServer.getClienteByCorreo(this.state.form.correo);
-        const data = await respuesta.json();
-        console.log(data);
+        const res = await EmpleadoServer.getEmpleadoByCorreo(this.state.form.correo);
+        const data = await res.json();
         if (data.message === "Seccess") {
-            if (data.clientes.password === this.state.form.password) {
-                cookies.set('id', data.clientes.id, { path: "/" })
-                cookies.set('name', data.clientes.name, { path: "/" })
-                cookies.set('apellidos', data.clientes.apellidos, { path: "/" })
-                cookies.set('fechaNacimiento', data.clientes.fechaNacimiento, { path: "/" })
-                cookies.set('correo', data.clientes.correo, { path: "/" })
-                cookies.set('rfc', data.clientes.rfc, { path: "/" })
-                cookies.set('telefono', data.clientes.telefono, { path: "/" })
-                window.location.href = "../Perfil"
+            if (data.empleados.password === this.state.form.password) {
+                cookies.set('id', data.empleados.id, { path: "/" })
+                cookies.set('name', data.empleados.name, { path: "/" })
+                cookies.set('rol', data.empleados.rol, { path: "/" })
+                Swal.fire('Bienvenido', data.empleados.name)
+                window.location.href = "./Home"
             }
             else {
                 Swal.fire("Error", "Contraseña invalida", 'error');
             }
         }
         else {
-            Swal.fire("Error", "Correo invalido", 'error');
-
+            const respuesta = await ClienteServer.getClienteByCorreo(this.state.form.correo);
+            const data = await respuesta.json();
+            console.log(data);
+            if (data.message === "Seccess") {
+                if (data.clientes.password === this.state.form.password) {
+                    cookies.set('id', data.clientes.id, { path: "/" })
+                    cookies.set('name', data.clientes.name, { path: "/" })
+                    cookies.set('apellidos', data.clientes.apellidos, { path: "/" })
+                    cookies.set('fechaNacimiento', data.clientes.fechaNacimiento, { path: "/" })
+                    cookies.set('correo', data.clientes.correo, { path: "/" })
+                    cookies.set('rfc', data.clientes.rfc, { path: "/" })
+                    cookies.set('telefono', data.clientes.telefono, { path: "/" })
+                    cookies.set('rol', data.clientes.rol, { path: "/" })
+                    window.location.href = "../Perfil"
+                }
+                else {
+                    Swal.fire("Error", "Contraseña invalida", 'error');
+                }
+            }
+            else {
+                Swal.fire("Error", "Correo invalido", 'error');
+            }
         }
-
     }
 
     componentDidMount() {
