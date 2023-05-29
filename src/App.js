@@ -20,7 +20,7 @@ import Login from './components/Paginas/Publico/Login';
 //privadas
 import perfil from './components/Paginas/Privado/Perfil';
 import Prestamos from './components/Paginas/Privado/Prestamos';
-import Referencias from './components/Paginas/Privado/Referencias';
+import Referencias from './components/Paginas/Privado/ReferenciaList ';
 
 //protegidas
 

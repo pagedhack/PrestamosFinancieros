@@ -32,8 +32,11 @@ class Login extends Component {
         const data = await res.json();
         if (data.message === "Seccess") {
             if (data.empleados.password === this.state.form.password) {
-                cookies.set('id', data.empleados.id, { path: "/" })
-                cookies.set('name', data.empleados.name, { path: "/" })
+                cookies.set('apellidos', data.empleados.apellidos, { path: "/" })
+                cookies.set('fechaNacimiento', data.empleados.fechaNacimiento, { path: "/" })
+                cookies.set('correo', data.empleados.correo, { path: "/" })
+                cookies.set('rfc', data.empleados.rfc, { path: "/" })
+                cookies.set('telefono', data.empleados.telefono, { path: "/" })
                 cookies.set('rol', data.empleados.rol, { path: "/" })
                 Swal.fire('Bienvenido', data.empleados.name)
                 window.location.href = "./Home"

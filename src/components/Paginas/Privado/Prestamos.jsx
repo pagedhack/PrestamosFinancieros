@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 //import swal from "sweetalert";
 
-import * as PrestamoServer from "../Servidor/Prestamos/PrestamoServer";
-import PrestamoItem2 from "../Servidor/Prestamos/PrestamoItem2";
+import * as PrestamoServer from "./PrestamoServer";
+import PrestamoItem2 from "./PrestamoItem2";
 
 const PrestamoForm = () => {
   // const history = useHistory();

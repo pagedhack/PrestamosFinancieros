@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import * as ReferenciaServer from "./ReferenciaServer";
-import * as ClienteServer from "../Cliente/ClienteServer"
+import * as ClienteServer from "../Servidor/Cliente/ClienteServer"
 
 
 const ReferenciaItem=({ referencia, listReferencias })=>{
