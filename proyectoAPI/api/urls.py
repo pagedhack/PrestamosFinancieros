@@ -10,6 +10,6 @@ urlpatterns = [
     path('empleados/<int:id>', EmpleadoView.as_view(), name='empleados_process'),
     path('prestamos', PrestamoView.as_view(), name='prestamos_list'),
     path('prestamos/<int:id>', PrestamoView.as_view(), name='prestamos_process'),
-     path('referencias/', ReferenciaView.as_view(), name='referencias_list'),
+    path('referencias/', ReferenciaView.as_view(), name='referencias_list'),
     path('referencias/<int:id>/', ReferenciaView.as_view(), name='referencias_process')
 ]

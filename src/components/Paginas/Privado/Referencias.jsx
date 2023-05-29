@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import * as ReferenciaServer from "../Servidor/Cliente/ReferenciaServer";
+import * as ReferenciaServer from "../Servidor/Referencia/ReferenciaServer";
 import * as ClienteServer from "../Servidor/Cliente/ClienteServer"
 
 export default function Prestamos() {

@@ -44,4 +44,3 @@ export const deleteReferencia = async (referenciaId) => {
         method: 'DELETE'
     });
 };
-

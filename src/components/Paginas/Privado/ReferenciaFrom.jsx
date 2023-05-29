@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import * as PrestamoServer from "./PrestamoServer";
 import PrestamoItem2 from "./PrestamoItem2";
 
-const RenovarForm = () => {
+const PrestamoForm = () => {
   // const history = useHistory();
   const params = useParams();
 
@@ -74,6 +74,3 @@ const RenovarForm = () => {
   );
 
 };
-
-
-export default RenovarForm;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 // Components:
-import ReferenciaItem from "./Referencias";
+import ReferenciaItem from "./ReferenciaItem";
 
-import * as ReferenciaServer from "../Servidor/Cliente/ReferenciaServer";
+import * as ReferenciaServer from "./ReferenciaServer";
 
 const ReferenciaList = () => {
   const [referencias, setReferencias] = useState([]);

@@ -36,6 +36,13 @@ class Prestamo(models.Model):
     cliente = models.ForeignKey(Cliente,null=True,blank=True,on_delete=models.CASCADE)
 
 
+# Procentaje
+class Porcentaje(models.Model):
+    porcetanje = models.FloatField(default=0)
+    status = models.CharField(max_length=9, choices=status, default='Inactivo')
+    prestamo = models.ForeignKey(Prestamo,null=True,blank=True,on_delete=models.CASCADE)
+  
+
 # Clase Referencia
 class Referencia(models.Model):
     personales_exists = models.BooleanField(choices=[(True, 'S'), (False, 'N')])

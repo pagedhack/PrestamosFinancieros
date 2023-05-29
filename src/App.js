@@ -53,6 +53,7 @@ function App() {
                     <Route exact path='/perfil' component={perfil} />
                     <Route exact path='/prestamos' component={Prestamos} />
                     <Route exact path='/Referencias' component={Referencias} />
+                    
                     {/* protegida-empleado */}
 
 

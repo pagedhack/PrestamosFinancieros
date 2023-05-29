@@ -8,7 +8,6 @@ const PrestamoItem2 = ({ prestamo }) => {
 
   const handleNom = async () =>  { 
     const data = await (await ClienteServer.getCliente(prestamo.cliente_id)).json();
-    setCliente(data.clientes);
     console.log(data);
   };
 
@@ -23,8 +22,8 @@ const PrestamoItem2 = ({ prestamo }) => {
         <p className="card-text">Status: <strong>{prestamo.status}</strong></p>
         <p className="card-text">Monto: <strong>{prestamo.monto}</strong></p>
         <p className="card-text">No. cliente: <strong>{prestamo.cliente_id}</strong></p>
-        <p className="card-text">Nombre cliente: <strong>{cliente.name + " " + cliente.apellidos}</strong></p>
-        
+        {/* <p className="card-text">Nombre cliente: <strong>{cliente.name + " " + cliente.apellidos}</strong></p> */}
+        <p className="card-text">Nombre Cliente: <strong>{cliente.name+" " + cliente.apellidos}</strong></p>
         {prestamo.status === "Terminado" || prestamo.status === "Activo" ? (
           <p className="factibilidad-factible">Factible Para Renovar</p>
         ) : (
