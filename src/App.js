@@ -19,8 +19,16 @@ import Login from './components/Paginas/Publico/Login';
 
 //privadas
 import perfil from './components/Paginas/Privado/Perfil';
-import Prestamos from './components/Paginas/Privado/Prestamos';
-import Referencias from './components/Paginas/Privado/ReferenciaList ';
+
+
+//prestamo
+import PrestamoList from './components/Paginas/Servidor/Prestamos/PrestamoList';
+import PrestamoForm from './components/Paginas/Servidor/Prestamos/PrestamoForm';
+import RenobarForm from './components/Paginas/Servidor/Prestamos/RenobarForm';
+
+import ReferenciaList from './components/Paginas/Servidor/Prestamos/ReferenciaList ';
+
+// import Pago from './components/Paginas/Privado/Pago'
 
 //protegidas
 
@@ -38,7 +46,7 @@ function App() {
                         <Navbar />
                     ) : (
                         <NavbarCliente />
-                    ) 
+                    )
                 }
                 <Switch>
                     {/* publicas */}
@@ -51,9 +59,18 @@ function App() {
                     |
                     {/* privadas-cliente */}
                     <Route exact path='/perfil' component={perfil} />
-                    <Route exact path='/prestamos' component={Prestamos} />
-                    <Route exact path='/Referencias' component={Referencias} />
-                    
+
+
+                    <Route exact path='/prestamoList' component={PrestamoList} />
+                    <Route path='/Prestamoform' component={PrestamoForm} />
+                    <Route path='/RenobarForm' component={RenobarForm} />
+                    <Route exact path='/referenciaList' component={ReferenciaList} />
+
+                    {/* <Route exact path='/prestamos' component={Prestamos} />
+                    <Route exact path='/referencias' component={Referencia} /> */}
+                    {/* <Route exact path='/Pago' component={Pago} /> */}
+
+
                     {/* protegida-empleado */}
 
 

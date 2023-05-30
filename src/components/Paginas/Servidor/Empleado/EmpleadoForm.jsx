@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import swal from "sweetalert";
+import swal from "sweetalert2";
 
 import * as EmpleadoServer from "./EmpleadoServer";
 

@@ -17,7 +17,7 @@ export const registerCliente= async (newCliente) => {
     return await fetch(API_URL,{
         method:'POST',
         headers:{
-            'Content-Type':'application/jason'
+            'Content-Type':'application/json'
         },
         body:JSON.stringify({
             "name":String(newCliente.name).trim(),

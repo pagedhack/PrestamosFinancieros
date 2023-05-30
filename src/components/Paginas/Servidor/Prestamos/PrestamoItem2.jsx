@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import * as ClienteServer from "../Servidor/Cliente/ClienteServer"
+import * as ClienteServer from "../Cliente/ClienteServer"
 
 const PrestamoItem2 = ({ prestamo }) => {
   const history = useHistory();

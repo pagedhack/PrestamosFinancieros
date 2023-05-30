@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import * as ReferenciaServer from "./ReferenciaServer";
-import * as ClienteServer from "../Servidor/Cliente/ClienteServer"
+import * as ClienteServer from "../Cliente/ClienteServer"
 
 
 const ReferenciaItem=({ referencia, listReferencias })=>{
@@ -35,7 +35,7 @@ const handleNom = async () =>  {
                 <p className="card-text" style={{ color: referencia.crediticias_exists ? 'green' : 'red' }}>Crediticias: <strong>{referencia.crediticias_exists.toString()}</strong></p>
                 <p className="card-text" style={{ color: referencia.laborales_exists ? 'green' : 'red' }}>Laborales: <strong>{referencia.laborales_exists.toString()}</strong></p>
                 <p className="card-text">Referencias de cliente: <strong>{referencia.cliente_id}</strong></p>
-                <p className="card-text">Nombre cliente: <strong>{cliente.name + " " + cliente.apellidos}</strong></p>
+                {/* <p className="card-text">Nombre cliente: <strong>{cliente.name + " " + cliente.apellidos}</strong></p> */}
                 {referencia.personales_exists && referencia.crediticias_exists && referencia.bancarias_exists && referencia.laborales_exists ? (
                     <p className="factibilidad-factible">Aprobado</p>
                 ) : (
