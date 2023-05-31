@@ -1,25 +1,11 @@
 
 import React from 'react';
 import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBreadcrumb,
-  MDBBreadcrumbItem,
-  MDBProgress,
-  MDBProgressBar,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBTabs,
-  MDBTabsItem,
-  MDBTabsLink,
-  MDBTabsContent,
-  MDBTabsPane,
-  MDBBadge
+  MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText,
+  MDBCardBody, MDBCardImage, MDBBreadcrumb, MDBBreadcrumbItem,
+  MDBProgress, MDBProgressBar, MDBListGroup, MDBListGroupItem,
+  MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent,
+  MDBTabsPane, MDBBadge
 } from 'mdb-react-ui-kit';
 import { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
@@ -46,9 +32,12 @@ export default function ProfilePage() {
   }
 
   const history = useHistory();
-  const params = useParams();
+  // const params = useParams(cookies.get('id'));
 
-  const initialState = { id: 0, name: "", apellidos: "", fechaNacimiento: "", rfc: "", correo: "", telefono: "", password: "", rol: 2 };
+  const initialState = { id: 0, name: cookies.get('name'), apellidos: cookies.get('apellidos'), 
+                        fechaNacimiento: cookies.get('fechanacimiento'), rfc: cookies.get('rfc'), 
+                        correo: cookies.get('correo'), telefono: cookies.get('telefono'), 
+                        password: cookies.get('password'), rol: 2 };
 
   const [cliente, setCliente] = useState(initialState);
 
@@ -67,12 +56,12 @@ export default function ProfilePage() {
     e.preventDefault();
     try {
       let res;
-      if (params.id) {
-        res = await ClienteServer.updateCliente(params.id, cliente);
+      // if (cookies.get('id')) {
+        res = await ClienteServer.updateCliente('/'+cookies.get('id'), cliente);
         const data = await res.json();
-        console.log(data);
+        console.log(data + "data");
         if (data.message === "Success") {
-          Swal.fire("Seccess", "Cliente actualizado!");
+          Swal.fire("Success", "Cliente actualizado!");
         }
         if (data.message === "Correo") {
           Swal.fire("Error", "Correo ya en uso");
@@ -80,7 +69,7 @@ export default function ProfilePage() {
         if (data.message === "Clientes not found") {
           mostrarAlerta();
         }
-      }
+      // }
       history.push("/");
     } catch (error) {
       mostrarAlerta2();
@@ -88,38 +77,29 @@ export default function ProfilePage() {
     }
   };
 
-  const getCliente = async (clienteId) => {
-    try {
-      const res = await ClienteServer.getCliente(clienteId);
-      const data = await res.json();
-      console.log(data);
-      const { name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol } = data.clientes;
-      setCliente({ name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol });
-      console.log(data)
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getCliente = async (clienteId) => {
+  //   try {
+  //     const res = await ClienteServer.getCliente(clienteId);
+  //     const data = await res.json();
+  //     console.log(data);
+  //     const { name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol } = data.clientes;
+  //     setCliente({ name, apellidos, fechaNacimiento, rfc, correo, telefono, password, rol });
+  //     console.log(data)
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (params.id) {
-      getCliente(params.id);
-    }
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   if (cookies.get('id')) {
+  //     getCliente(cookies.get('id'));
+  //   }
+  //   // eslint-disable-next-line
+  // }, []);
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
-
-  console.log(getRandomInt(2));
-
-
-  // function va({ text }) {
-  //   return text
-  //     ? <button>{text}</button>
-  //     : null
-  // }
 
   return (
     <section style={{ backgroundColor: '#eee' }}>
@@ -292,7 +272,7 @@ export default function ProfilePage() {
                         <MDBCardText>Numero de tarjeta</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">{cookies.get('name')}</MDBCardText>
+                        <MDBCardText className="text-muted">00000000</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -301,7 +281,7 @@ export default function ProfilePage() {
                         <MDBCardText>Vencimiento</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
-                        <MDBCardText className="text-muted">{cookies.get('name')}</MDBCardText>
+                        <MDBCardText className="text-muted">00000000</MDBCardText>
                       </MDBCol>
                     </MDBRow>
                     <hr />
@@ -323,7 +303,8 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText>
-                            <input type="text" placeholder={cookies.get('name')} name="name" value={cliente.name} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required /></MDBCardText>
+                            <input type="text" name="name" value={cliente.name} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
+                          </MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />
@@ -333,8 +314,8 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText>
-
-                            <input type="text" placeholder={cookies.get('apellidos')} name="name" value={cliente.apellidos} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required /></MDBCardText>
+                            <input type="text" name="apellidos" value={cliente.apellidos} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
+                          </MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />
@@ -344,7 +325,7 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText>
-                            <input type="date" placeholder={cookies.get('fechaNacimiento')} name="fechaNacimiento" value={cliente.fechaNacimiento} data-date-format="yyyy-mm-dd" onChange={handleInputChange} className="form-control" maxLength="100" required />
+                            <input type="date" name="fechaNacimiento" value={cliente.fechaNacimiento} data-date-format="yyyy-mm-dd" onChange={handleInputChange} className="form-control" maxLength="100" required />
                           </MDBCardText>
                         </MDBCol>
                       </MDBRow>
@@ -355,7 +336,8 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText>
-                            <input type="text" name="name" value={cookies.get('rfc')} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required /></MDBCardText>
+                            <input type="text" name="rfc" value={cliente.rfc} onChange={handleInputChange} className="form-control" minLength="13" maxLength="13" required />
+                          </MDBCardText>
                         </MDBCol>
                       </MDBRow>
                       <hr />
@@ -365,7 +347,7 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText>
-                            <input type="text" name="name" value={cookies.get('correo')} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
+                            <input type="email" name="correo" value={cliente.correo} onChange={handleInputChange} className="form-control" maxLength="100" required />
                           </MDBCardText>
                         </MDBCol>
                       </MDBRow>
@@ -376,22 +358,33 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText>
-                            <input type="text" name="name" value={cookies.get('telefono')} onChange={handleInputChange} className="form-control" minLength="2" maxLength="50" required />
+                            <input type="text" name="telefono" value={cliente.telefono} onChange={handleInputChange} className="form-control" minLength="10" maxLength="10" required />
                           </MDBCardText>
                         </MDBCol>
                       </MDBRow>
+                      <hr />
+                      <MDBRow>
+                        <MDBCol sm="3">
+                          <MDBCardText>Password</MDBCardText>
+                        </MDBCol>
+                        <MDBCol sm="9">
+                          <MDBCardText>
+                            <input type="password" name="password" value={cliente.password} onChange={handleInputChange} className="form-control" minLength="8" maxLength="8" required />
+                          </MDBCardText>
+                        </MDBCol>
+                      </MDBRow>
+                      <div className="d-flex justify-content-center mb-2">
+                        <button type="submit" className="btn btn-block btn-primary" onClick={handleSubmit}>
+                          Guardar
+                        </button>
+                        <Link to={"/Home"}><button className="btn btn-block btn-primary" onClick={subir}>
+                          Cancelar
+                        </button>
+                        </Link>
+                      </div>
                     </form>
                   </MDBCardBody>
                 </MDBCard>
-                <div className="d-flex justify-content-center mb-2">
-                  <button type="submit" className="btn btn-block btn-primary" onClick={handleSubmit}>
-                    Guardar
-                  </button>
-                  <Link to={"/Home"}><button className="btn btn-block btn-primary" onClick={subir}>
-                    Cancelar
-                  </button>
-                  </Link>
-                </div>
               </MDBTabsPane>
 
               <MDBTabsPane show={basicActive === 'eCuenta'}>
@@ -402,7 +395,7 @@ export default function ProfilePage() {
                   <MDBCardBody>
                     <MDBRow>
                       <MDBCol sm="3">
-                        <MDBCardText>Numero de trajeta</MDBCardText>
+                        <MDBCardText>Numero de tarjeta</MDBCardText>
                       </MDBCol>
                       <MDBCol sm="9">
                         <MDBCardText>
@@ -450,6 +443,15 @@ export default function ProfilePage() {
 
                     <MDBCardBody>
                       <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Prestamo Saldado</span></MDBCardText>
+
+                      <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Total Pagado</MDBCardText>
+                      <MDBProgress className="rounded">
+                        <MDBProgressBar width={100} valuemin={0} valuemax={100} />
+                      </MDBProgress>
+                    </MDBCardBody>
+
+                    <MDBCardBody>
+                      <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">Prestamo Activo</span></MDBCardText>
 
                       <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Total Pagado</MDBCardText>
                       <MDBProgress className="rounded">

@@ -26,10 +26,14 @@ import PrestamoList from './components/Paginas/Servidor/Prestamos/PrestamoList';
 import PrestamoForm from './components/Paginas/Servidor/Prestamos/PrestamoForm';
 import RenobarForm from './components/Paginas/Servidor/Prestamos/RenobarForm';
 
+//referencias
 import ReferenciaList from './components/Paginas/Servidor/Prestamos/ReferenciaList ';
 
+//pagos
 // import Pago from './components/Paginas/Privado/Pago'
 
+import ClienteForm from './components/Paginas/Servidor/Cliente/ClienteForm';
+import ClienteList from './components/Paginas/Servidor/Cliente/ClienteList';
 //protegidas
 
 
@@ -67,9 +71,12 @@ function App() {
                     <Route exact path='/referenciaList' component={ReferenciaList} />
 
                     {/* <Route exact path='/prestamos' component={Prestamos} />
-                    <Route exact path='/referencias' component={Referencia} /> */}
-                    {/* <Route exact path='/Pago' component={Pago} /> */}
+                    <Route exact path='/referencias' component={Referencia} /> 
+                     <Route exact path='/Pago' component={Pago} /> */}
 
+                     <Route exact path='/cliente' component={ClienteForm} /> 
+                     <Route exact path='/listaclientes' component={ClienteList} />
+                     <Route path='/updateCliente/:id' component={ClienteForm} />
 
                     {/* protegida-empleado */}
 

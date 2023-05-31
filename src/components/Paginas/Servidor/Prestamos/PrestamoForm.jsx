@@ -37,6 +37,7 @@ const PrestamoForm = () => {
 
   const [prestamos, setPrestamos] = useState([]);
 
+
   const listPrestamos = async () => {
     const res = await PrestamoServer.listPrestamos();
     const data = await res.json();
@@ -52,13 +53,16 @@ const PrestamoForm = () => {
   }, []);
 
   const handleNom = async () => {
-    const data = await ((await ClienteServer.getCliente(prestamo.cliente_id)).json());
-    console.log(data + "hola nuevo dato");
-    for (const property in data) {
-      for (const p in property){
-        console.log(`${p}: ${property[property]}`);
-      }
-    }
+    const data =  (await ClienteServer.getCliente(prestamo.cliente_id)).json();
+    console.log(data);
+   
+    // console.log(data + "hola nuevo dato");
+    
+    // for (const property in data) {
+    //   for (const p in property){
+    //     console.log(`${p}: ${property[property]}`);
+    //   }
+    // }
     
   };
 
@@ -119,7 +123,7 @@ const PrestamoForm = () => {
 
 export default PrestamoForm;
 
-// <maiu>
+{/* <maiu> */}
 //   <div className="col-md-3 mx-auto">
 //     <h2 className="mb-3 text-center">Prestamo</h2>
 //     {/* <form onSubmit={handleSubmit}> */}

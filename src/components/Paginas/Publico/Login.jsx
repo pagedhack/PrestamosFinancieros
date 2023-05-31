@@ -39,6 +39,7 @@ class Login extends Component {
                 cookies.set('correo', data.empleados.correo, { path: "/" })
                 cookies.set('rfc', data.empleados.rfc, { path: "/" })
                 cookies.set('telefono', data.empleados.telefono, { path: "/" })
+                cookies.set('password', data.empleados.password, { path: "/" })
                 cookies.set('rol', data.empleados.rol, { path: "/" })
                 Swal.fire('Bienvenido', data.empleados.name)
                 window.location.href = "../Perfil"
@@ -60,6 +61,7 @@ class Login extends Component {
                     cookies.set('correo', data.clientes.correo, { path: "/" })
                     cookies.set('rfc', data.clientes.rfc, { path: "/" })
                     cookies.set('telefono', data.clientes.telefono, { path: "/" })
+                    cookies.set('password', data.clientes.password, { path: "/" })
                     cookies.set('rol', data.clientes.rol, { path: "/" })
                     window.location.href = "../Perfil"
                 }

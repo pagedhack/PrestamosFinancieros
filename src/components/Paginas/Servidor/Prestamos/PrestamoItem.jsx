@@ -21,7 +21,7 @@ const handleNom = async () =>  {
         listPrestamos();
     };
 
-    useEffect(async()=>{await handleNom()},[]);
+    useEffect(()=>{ handleNom()},[]);
 
     return (
         <div className="col-md-4">

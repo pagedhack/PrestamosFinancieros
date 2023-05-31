@@ -21,7 +21,7 @@ const handleNom = async () =>  {
         listReferencias();
     };
 
-    useEffect(async()=>{await handleNom()},[]);
+    useEffect(()=>{ handleNom()},[]);
 
     return (
         <div className="row">
