@@ -53,7 +53,7 @@ const ClienteForm = () => {
       history.push("/");
     } catch (error) {
       //console.log(error);
-      mostrarAlerta();
+      //mostrarAlerta();
       history.push("/");
     }
   };

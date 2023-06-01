@@ -9,7 +9,7 @@ export const getEmpleado = async (empleadoId) => {
 };
 
 export const getEmpleadoByCorreo = async (correo) => {
-    return await fetch(`${API_URL}/${correo}`);
+    return await fetch(`${API_URL}//${correo}`);
 };
 
 
