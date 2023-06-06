@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 
 // Components:
 import EmpleadoItem from "./EmpleadoItem";
@@ -23,11 +25,16 @@ const EmpleadoList = () => {
   }, []);
 
   return (
-    <div className="row">
-      {empleados.map((empleado) => (
-        <EmpleadoItem key={empleado.id} empleado={empleado} listEmpleados={listEmpleados} />
-      ))}
-    </div>
+    <>
+      <Link to={"/Prestamoformj"}><button className="btn btn-success my-2" >Registrar Prestamo Nuevo</button></Link>
+      <Link to={"/prestamoListj"}><button className="btn btn-warning my-2" >Listar Prestamos Disponibles</button></Link>
+
+      <div className="row">
+        {empleados.map((empleado) => (
+          <EmpleadoItem key={empleado.id} empleado={empleado} listEmpleados={listEmpleados} />
+        ))}
+      </div>
+    </>
   );
 };
 
