@@ -1,5 +1,8 @@
 # Getting Started with Create React App
 
+Aplicacion hecha para un sitio ficticio de prestamos financieros
+Hecho en React.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
